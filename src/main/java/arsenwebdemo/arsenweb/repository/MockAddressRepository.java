@@ -82,4 +82,29 @@ public class MockAddressRepository implements FilterAddressRepository {
     return addressList.stream()
         .max((a1, a2) -> a1.getHouseNumber().compareTo(a2.getHouseNumber()));
   }
+
+  public Optional<Address> findById(Integer id) {
+    return addressList.stream().filter(a -> a.getId().equals(id)).findFirst();
+  }
+
+  @Override
+  public Optional<Address> updateAddress(Address addressData, Integer id) {
+    Optional<Address> addressOptional = findById(id);
+
+    if(addressOptional.isPresent()) {
+      Address address = addressOptional.get();
+      address.setCity(addressData.getCity());
+      address.setHouseNumber(addressData.getHouseNumber());
+      address.setStreet(addressData.getStreet());
+      address.setHouseNumberAddOn(addressData.getHouseNumberAddOn());
+    }
+
+    return addressOptional;
+  }
+
+  @Override
+  public void deleteById(Integer id) {
+    Optional<Address> addressOptional = findById(id);
+    addressOptional.ifPresent(addressList::remove);
+  }
 }
