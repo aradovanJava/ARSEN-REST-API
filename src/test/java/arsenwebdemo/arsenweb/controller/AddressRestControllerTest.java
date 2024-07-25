@@ -50,16 +50,16 @@ class AddressRestControllerTest {
   @Test
   @Order(2)
   void should_return_address_by_id_status_ok() throws Exception {
-    int addressIdToFind = 1; // Replace with a valid ID in your database
+    int addressIdToFind = 4; // Replace with a valid ID in your database
 
     mockMvc
         .perform(get("/address/" + addressIdToFind))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(addressIdToFind))
-        .andExpect(jsonPath("$.street").value("Paljetkova")) // Replace with expected values
+        .andExpect(jsonPath("$.street").value("Tratinska")) // Replace with expected values
         .andExpect(jsonPath("$.city").value(City.ZAGREB.name()))
-        .andExpect(jsonPath("$.houseNumber").value(18)); // Replace with expected values
+        .andExpect(jsonPath("$.houseNumber").value(50)); // Replace with expected values
   }
 
   @Test
@@ -98,7 +98,7 @@ class AddressRestControllerTest {
   void should_update_existing_address_status_ok() throws Exception {
 
     Address updatedAddress = new Address("Updated Street", City.ZAGREB, 123);
-    int addressIdToUpdate = 1; // Replace with a valid ID in your database
+    int addressIdToUpdate = 3; // Replace with a valid ID in your database
 
     mockMvc
         .perform(
@@ -135,7 +135,7 @@ class AddressRestControllerTest {
   @Test
   @Order(7)
   void should_delete_existing_address_status_no_content() throws Exception {
-    int addressIdToDelete = 1; // Replace with a valid ID in your database
+    int addressIdToDelete = 4; // Replace with a valid ID in your database
 
     mockMvc
         .perform(delete("/address/" + addressIdToDelete))
