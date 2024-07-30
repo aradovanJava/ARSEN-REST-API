@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MockAddressRepository implements FilterAddressRepository {
 
+  /*
   private static final List<Address> addressList = new ArrayList<>();
 
   static {
@@ -45,7 +46,42 @@ public class MockAddressRepository implements FilterAddressRepository {
     addressList.add(secondAparmentAddress);
   }
 
-  MockAddressRepository() {}
+   */
+
+  private final List<Address> addressList;
+
+  MockAddressRepository() {
+    addressList = new ArrayList<>();
+
+    Address firstHouseAddress =
+        new Address(1,
+            "Paljetkova",
+            City.ZAGREB,
+            18);
+
+    Address secondHouseAddress =
+        new Address(2,
+            "Slavonska avenija",
+            City.ZAGREB,
+            102);
+
+    Address firstAparmentAddress =
+        new Address(3,
+            "Dubrava",
+            City.ZAGREB,
+            5);
+
+    Address secondAparmentAddress =
+        new Address(4,
+            "Tratinska",
+            City.ZAGREB,
+            50);
+
+    addressList.add(firstHouseAddress);
+    addressList.add(secondHouseAddress);
+    addressList.add(firstAparmentAddress);
+    addressList.add(secondAparmentAddress);
+  }
 
   @Override
   public List<Address> findAll() {
@@ -54,37 +90,37 @@ public class MockAddressRepository implements FilterAddressRepository {
 
   @Override
   public List<Address> filterByCity(String city) {
-    return addressList.stream()
+    return findAll().stream()
         .filter(a -> a.getCity().name().contains(city.toUpperCase()))
         .collect(Collectors.toList());
   }
 
   @Override
   public List<Address> filterByStreet(String street) {
-    return addressList.stream()
+    return findAll().stream()
         .filter(a -> a.getStreet().toUpperCase().contains(street.toUpperCase()))
         .collect(Collectors.toList());
   }
 
   @Override
   public Address save(Address address) {
-    Integer nextId = addressList.stream()
+    Integer nextId = findAll().stream()
         .map(Entity::getId)
         .reduce(0, Integer::max);
 
     address.setId(nextId + 1);
-    addressList.add(address);
+    findAll().add(address);
     return address;
   }
 
   @Override
   public Optional<Address> findByHighestHouseNumber() {
-    return addressList.stream()
+    return findAll().stream()
         .max((a1, a2) -> a1.getHouseNumber().compareTo(a2.getHouseNumber()));
   }
 
   public Optional<Address> findById(Integer id) {
-    return addressList.stream().filter(a -> a.getId().equals(id)).findFirst();
+    return findAll().stream().filter(a -> a.getId().equals(id)).findFirst();
   }
 
   @Override
@@ -105,6 +141,6 @@ public class MockAddressRepository implements FilterAddressRepository {
   @Override
   public void deleteById(Integer id) {
     Optional<Address> addressOptional = findById(id);
-    addressOptional.ifPresent(addressList::remove);
+    addressOptional.ifPresent(findAll()::remove);
   }
 }
