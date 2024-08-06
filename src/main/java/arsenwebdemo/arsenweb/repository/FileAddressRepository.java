@@ -41,7 +41,7 @@ public class FileAddressRepository implements FilterAddressRepository {
         throw new FileException("The number of lines is not a multiple of " + NUMBER_OF_LINES);
       }
 
-      for(int i = 0; i < addressFileLines.size()/NUMBER_OF_LINES; i += 1) {
+      for (int i = 0; i < addressFileLines.size() / NUMBER_OF_LINES; i += 1) {
         Integer id = Integer.parseInt(addressFileLines.get(i * NUMBER_OF_LINES));
         String street = addressFileLines.get((i * NUMBER_OF_LINES) + 1);
         City city = City.valueOf(addressFileLines.get((i * NUMBER_OF_LINES) + 2));
@@ -50,7 +50,7 @@ public class FileAddressRepository implements FilterAddressRepository {
 
         Address newAddress = new Address(id, street, city, houseNumber);
 
-        if(!houseNumberAddOn.isBlank()) {
+        if (!houseNumberAddOn.isBlank()) {
           newAddress.setHouseNumberAddOn(houseNumberAddOn);
         }
 

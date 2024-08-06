@@ -1,8 +1,3 @@
-1
-Paljetkova
-ZAGREB
-18
-
 2
 Ilica
 ZAGREB
@@ -28,3 +23,18 @@ Ilica
 ZAGREB
 1
 
+7
+string
+ZAGREB
+0
+string
+8
+string
+ZAGREB
+0
+string
+9
+string
+ZAGREB
+0
+string
