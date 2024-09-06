@@ -2,6 +2,7 @@ package arsenwebdemo.arsenweb.service;
 
 import arsenwebdemo.arsenweb.model.Address;
 import arsenwebdemo.arsenweb.repository.AddressRepository;
+import arsenwebdemo.arsenweb.repository.SpringDataAddressRepository;
 import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,8 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AddressServiceImpl implements AddressService {
 
-  private AddressRepository addressRepository;
+  //private AddressRepository addressRepository;
+  private SpringDataAddressRepository addressRepository;
 
   @Override
   public List<Address> findAll() {
@@ -26,7 +28,16 @@ public class AddressServiceImpl implements AddressService {
 
   @Override
   public Optional<Address> updateAddress(Address address, Integer id) {
-    return addressRepository.updateAddress(address, id);
+
+    if(addressRepository.findById(id).isEmpty()) {
+      return Optional.empty();
+    }
+    else {
+      return Optional.of(addressRepository.save(address));
+    }
+
+    //return addressRepository.updateAddress(address, id);
+    //return addressRepository.save(address);
   }
 
   @Override
