@@ -1,6 +1,9 @@
 package arsenwebdemo.arsenweb.model;
 
 import arsenwebdemo.arsenweb.enumeration.City;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,9 +13,12 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@jakarta.persistence.Entity
 public class Address extends Entity {
 
     private String street;
+
+    @Enumerated(EnumType.STRING)
     private City city;
     private Integer houseNumber;
     private String houseNumberAddOn;

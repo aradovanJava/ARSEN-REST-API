@@ -1,16 +1,31 @@
 package arsenwebdemo.arsenweb.model;
 
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import lombok.NoArgsConstructor;
 
+@jakarta.persistence.Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@NoArgsConstructor
 public abstract non-sealed class RealEstate extends Entity implements Transferable {
 
+    @ManyToOne
     private Address address;
+
     private BigDecimal area;
+    @Transient
     private BigDecimal price;
+    @Transient
     private Integer numberOfRooms;
+    @Transient
     private Integer numberOfBalconies;
+    @Transient
     private List<Owner> ownerList;
 
     protected RealEstate(Integer id, Address address, BigDecimal area, BigDecimal price,

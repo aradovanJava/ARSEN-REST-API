@@ -27,7 +27,7 @@ public class FileRealEstateRepository implements RealEstateRepository {
   private String filePath;
 
   @Autowired
-  private AddressRepository addressRepository;
+  private SpringDataAddressRepository addressRepository;
 
   @Override
   public List<RealEstate> findAll() {

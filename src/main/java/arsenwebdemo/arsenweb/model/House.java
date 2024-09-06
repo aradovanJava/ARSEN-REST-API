@@ -1,8 +1,14 @@
 package arsenwebdemo.arsenweb.model;
 
+import jakarta.persistence.Entity;
 import java.math.BigDecimal;
 import java.util.List;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@Entity
+@ToString
+@NoArgsConstructor
 public class House extends RealEstate {
 
     private BigDecimal yardArea;
